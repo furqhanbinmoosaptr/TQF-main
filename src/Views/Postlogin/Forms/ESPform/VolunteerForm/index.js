@@ -78,7 +78,7 @@ const VolunteerForm = () => {
 
   return (
     <ContentLayout
-    
+     headerVariant='high-contrast'
 breadcrumbs={
     <BreadcrumbGroup
     items={[

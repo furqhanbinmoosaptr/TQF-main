@@ -37,7 +37,7 @@ class GridTableWithPagination extends Component {
   }
   render() {
     const {
-      paginationDetails = { pageSize: 10, page: 0 },
+      paginationDetails = { pageSize: 10, page: 0 }, 
       pagSize = 5,
       data,
       columns,

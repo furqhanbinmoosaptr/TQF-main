@@ -16,7 +16,7 @@ class Donations extends Component {
   render() {
     return (
       <ContentLayout
-
+headerVariant="high-contrast"
       breadcrumbs={
         <BreadcrumbGroup
         items={[

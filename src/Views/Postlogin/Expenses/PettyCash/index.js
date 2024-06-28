@@ -20,7 +20,6 @@ const PettyCash = () => {
           <Header
             variant="h1"
             info={<Link variant="info">Info</Link>}
-            
           >
            Petty Cash
           </Header>

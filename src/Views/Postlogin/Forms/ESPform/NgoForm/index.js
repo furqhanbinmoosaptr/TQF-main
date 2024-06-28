@@ -5,6 +5,12 @@ import {
   Container,
   Grid,
   Input,
+  Wizard,
+  Link,
+  Header,
+  ColumnLayout,
+  Box,
+  FormField,
   Select,
   Button
 } from '@cloudscape-design/components';
@@ -15,112 +21,148 @@ const NGOForm = () => {
     // Handle form submission
   };
 
+  const [
+    activeStepIndex,
+    setActiveStepIndex
+  ] = React.useState(0);
+
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
-        <SpaceBetween size="m">
-          <h1>Add NGO Form</h1>
-          <Grid
-            gridDefinition={[
-              { colspan: { default: 12, m: 6 } },
-              { colspan: { default: 12, m: 6 } },
-            ]}
-          >
-            <Input
-              placeholder="Enter NGO name"
-              label="NGO Name"
-              required
-            />
-            <Input
-              placeholder="Enter registration number"
-              label="Registration Number"
-              required
-            />
-            <Input
-              placeholder="Enter contact person name"
-              label="Contact Person"
-              required
-            />
-            <Input
-              placeholder="Enter contact email"
-              label="Contact Email"
-              type="email"
-              required
-            />
-            <Input
-              placeholder="Enter contact phone number"
-              label="Contact Phone"
-              type="tel"
-              required
-            />
-            <Input
-              placeholder="Enter address"
-              label="Address"
-              required
-            />
-            <Input
-              placeholder="Enter city"
-              label="City"
-              required
-            />
-            <Input
-              placeholder="Enter postal code"
-              label="Postal Code"
-              type="number"
-              required
-            />
-            <Select
-              placeholder="Select state"
-              label="State"
-              options={[
-                { label: 'State 1', value: 'state_1' },
-                { label: 'State 2', value: 'state_2' },
-                // Add more states as needed
-              ]}
-              required
-            />
-            <Select
-              placeholder="Select country"
-              label="Country"
-              options={[
-                { label: 'Country 1', value: 'country_1' },
-                { label: 'Country 2', value: 'country_2' },
-                // Add more countries as needed
-              ]}
-              required
-            />
-            <Input
-              placeholder="Enter NGO description"
-              label="Description"
-              required
-            />
-            <Input
-              placeholder="Enter website URL"
-              label="Website URL"
-              type="url"
-            />
-            <Input
-              placeholder="Enter date of establishment"
-              label="Date of Establishment"
-              type="date"
-              required
-            />
-            <Input
-              placeholder="Enter mission statement"
-              label="Mission Statement"
-              required
-            />
-            <Input
-              placeholder="Enter area of operation"
-              label="Area of Operation"
-              required
-            />
-          </Grid>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-        </SpaceBetween>
-      </Form>
+     <Wizard
+      i18nStrings={{
+        stepNumberLabel: stepNumber =>
+          `Step ${stepNumber}`,
+        collapsedStepsLabel: (stepNumber, stepsCount) =>
+          `Step ${stepNumber} of ${stepsCount}`,
+        skipToButtonLabel: (step, stepNumber) =>
+          `Skip to ${step.title}`,
+        navigationAriaLabel: "Steps",
+        cancelButton: "Cancel",
+        previousButton: "Previous",
+        nextButton: "Next",
+        submitButton: "Launch instance",
+        optional: "optional"
+      }}
+      onNavigate={({ detail }) =>
+        setActiveStepIndex(detail.requestedStepIndex)
+      }
+      activeStepIndex={activeStepIndex}
+      allowSkipTo
+      steps={[
+        {
+          title: "Choose instance type",
+          info: <Link variant="info">Info</Link>,
+          description:
+            "Each instance type includes one or more instance sizes, allowing you to scale your resources to the requirements of your target workload.",
+          content: (
+            <Container
+              header={
+                <Header variant="h2">
+                  Form container header
+                </Header>
+              }
+            >
+              <SpaceBetween direction="vertical" size="l">
+                <FormField label="First field">
+                  <Input />
+                </FormField>
+                <FormField label="Second field">
+                  <Input />
+                </FormField>
+              </SpaceBetween>
+            </Container>
+          )
+        },
+        {
+          title: "Add storage",
+          content: (
+            <Container
+              header={
+                <Header variant="h2">
+                  Form container header
+                </Header>
+              }
+            >
+              <SpaceBetween direction="vertical" size="l">
+                <FormField label="First field">
+                  <Input />
+                </FormField>
+                <FormField label="Second field">
+                  <Input />
+                </FormField>
+              </SpaceBetween>
+            </Container>
+          ),
+          isOptional: true
+        },
+        {
+          title: "Configure security group",
+          content: (
+            <Container
+              header={
+                <Header variant="h2">
+                  Form container header
+                </Header>
+              }
+            >
+              <SpaceBetween direction="vertical" size="l">
+                <FormField label="First field">
+                  <Input />
+                </FormField>
+                <FormField label="Second field">
+                  <Input />
+                </FormField>
+              </SpaceBetween>
+            </Container>
+          ),
+          isOptional: true
+        },
+        {
+          title: "Review and launch",
+          content: (
+            <SpaceBetween size="xs">
+              <Header
+                variant="h3"
+                actions={
+                  <Button
+                    onClick={() => setActiveStepIndex(0)}
+                  >
+                    Edit
+                  </Button>
+                }
+              >
+                Step 1: Instance type
+              </Header>
+              <Container
+                header={
+                  <Header variant="h2">
+                    Container title
+                  </Header>
+                }
+              >
+                <ColumnLayout
+                  columns={2}
+                  variant="text-grid"
+                >
+                  <div>
+                    <Box variant="awsui-key-label">
+                      First field
+                    </Box>
+                    <div>Value</div>
+                  </div>
+                  <div>
+                    <Box variant="awsui-key-label">
+                      Second Field
+                    </Box>
+                    <div>Value</div>
+                  </div>
+                </ColumnLayout>
+              </Container>
+            </SpaceBetween>
+          )
+        }
+      ]}
+    />
     </Container>
   );
 };

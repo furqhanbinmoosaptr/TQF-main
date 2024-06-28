@@ -25,7 +25,7 @@ const RawMaterialsSlice = createSlice({
           ...state,
           rawmaterialslist: {
             status: status.SUCCESS,
-            data: payload,
+            data: payload, 
           },
         };
       })

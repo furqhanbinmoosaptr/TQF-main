@@ -46,6 +46,7 @@ const Search = () => {
 
   return (
 <ContentLayout
+headerVariant='high-contrast'
 breadcrumbs={
   <BreadcrumbGroup
   items={[

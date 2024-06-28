@@ -21,14 +21,14 @@ import {
 } from '@cloudscape-design/components';
 
 const AddEvents = () => {
-  const [value, setValue] = useState([]);
+const [value, setValue] = useState([]);
   const [adharrNum, SetAdhaarNum] = useState('');
   const [rationNum, SetRationNum] = useState('');
   const [mobNum, setMobNum] = useState('');
 
   const handleAdhaarChange = (event) => {
     const value = event.detail.value;
-    if (/^\d*$/.test(value)) { // Allow only digits
+    if (/^\d  *$/.test(value)) { // Allow only digits
       SetAdhaarNum(value);
     }
   };
@@ -48,7 +48,18 @@ const AddEvents = () => {
   };
 
   return (
-    <div className="form-container">
+    <ContentLayout headerVariant='high-contrast'
+    breadcrumbs={
+      <BreadcrumbGroup
+      items={[
+        { text: "Home", href: "#" },
+        { text: "Add Event", href: "#components" },
+      ]}
+      ariaLabel="Breadcrumbs"
+    />
+    }
+    header={<Header variant='h1'>Add Event</Header>}
+    >
       <Container>
         <form onSubmit={e => e.preventDefault()}>
           <Form
@@ -108,7 +119,7 @@ const AddEvents = () => {
           }
         }
       `}</style>
-    </div>
+    </ContentLayout>
   );
 };
 
