@@ -1,26 +1,47 @@
-import { ButtonDropdown, ContentLayout, Header, Link } from '@cloudscape-design/components'
-import React from 'react'
+import { BreadcrumbGroup, ButtonDropdown, ContentLayout, Link } from '@cloudscape-design/components';
+import React from 'react';
 import Table from "@cloudscape-design/components/table";
 import Box from "@cloudscape-design/components/box";
 import SpaceBetween from "@cloudscape-design/components/space-between";
 import Button from "@cloudscape-design/components/button";
 import TextFilter from "@cloudscape-design/components/text-filter";
+import Header from "@cloudscape-design/components/header";
 import Pagination from "@cloudscape-design/components/pagination";
 import CollectionPreferences from "@cloudscape-design/components/collection-preferences";
 
-const Bank = () => {
+const BeneficiaryType = () => {
   const [selectedItems, setSelectedItems] = React.useState([]);
 
-  const data = [
-    { id: 1, bankName: "ICICI Domestic", slug: "ICICI-D", accountNumber: "968500125285" },
-    { id: 2, bankName: "ICICI International", slug: "ICICI FCRA", accountNumber: "002036325250" },
-    { id: 3, bankName: "State Bank Of India", slug: "SBI", accountNumber: "02000225588" },
+  const items = [
+    { id: "1", occupationName: "Student" },
+    { id: "2", occupationName: "Widow" },
+    { id: "3", occupationName: "Orphan" },
+    { id: "4", occupationName: "Handicapped	" },
+    { id: "5", occupationName: "Economically Challenged	" },
+    { id: "6", occupationName: "Daily Wage Earner	" },
+    { id: "7", occupationName: "Medically Ill" },
+    { id: "8", occupationName: "House Wife" },
+    { id: "9", occupationName: "Tutor	" },
+    { id: "10", occupationName: "Unemployed	" },
   ];
 
   return (
     <ContentLayout 
+      breadcrumbs={
+        <BreadcrumbGroup
+          items={[
+            { text: "Home", href: "#" },
+            { text: "Configurations", href: "#components" },
+            {
+              text: "Beneficiary Types",
+              href: "#components/breadcrumb-group"
+            }
+          ]}
+          ariaLabel="Breadcrumbs"
+        />
+      }
       headerVariant='high-contrast' 
-      header={<Header variant='h1' info={<Link variant='info'>Info</Link>}>Bank</Header>}
+      header={<Header variant='h1' info={<Link variant='info'>Info</Link>}> Beneficiaries Types</Header>}
     >
       <Table
         renderAriaLive={({ firstIndex, lastIndex, totalItemsCount }) =>
@@ -32,36 +53,21 @@ const Bank = () => {
           selectionGroupLabel: "Items selection",
           allItemsSelectionLabel: ({ selectedItems }) =>
             `${selectedItems.length} ${selectedItems.length === 1 ? "item" : "items"} selected`,
-          itemSelectionLabel: ({ selectedItems }, item) => item.bankName,
+          itemSelectionLabel: ({ selectedItems }, item) => item.occupationName,
         }}
         columnDefinitions={[
           {
-            id: "bankName",
-            header: "Bank Name",
-            cell: e => e.bankName,
-            sortingField: "bankName",
-            isRowHeader: true,
-          },
-          {
-            id: "slug",
-            header: "Slug",
-            cell: e => e.slug,
-            sortingField: "slug",
-          },
-          {
-            id: "accountNumber",
-            header: "Account Number",
-            cell: e => e.accountNumber,
-            sortingField: "accountNumber",
+            id: "occupationName",
+            header: "Beneficiary Type Name",
+            cell: e => e.occupationName,
+            sortingField: "occupationName",
           },
         ]}
         columnDisplay={[
-          { id: "bankName", visible: true },
-          { id: "slug", visible: true },
-          { id: "accountNumber", visible: true },
+          { id: "occupationName", visible: true },
         ]}
         enableKeyboardNavigation
-        items={data}
+        items={items}
         loadingText="Loading resources"
         selectionType="multi"
         trackBy="id"
@@ -73,15 +79,12 @@ const Bank = () => {
             </SpaceBetween>
           </Box>
         }
-        filter={<TextFilter filteringPlaceholder="Find bank" filteringText="" />}
+        
+        filter={<TextFilter filteringPlaceholder="Find Occupation" filteringText="" />}
         header={
-          <Header
-            counter={selectedItems.length ? `(${selectedItems.length}/3)` : "(3)"}
-            actions={
-              <SpaceBetween direction="horizontal" size="xs">
-                   <ButtonDropdown
+          <Header actions={<SpaceBetween  direction='horizontal' size='xs'>
+            <ButtonDropdown
                 items={[
-                 
                   {
                     text: "Edit",
                     id: "mv",
@@ -96,11 +99,9 @@ const Bank = () => {
               >
                 Actions
               </ButtonDropdown>
-                <Button variant="primary">Add Bank</Button>
-              </SpaceBetween>
-            }
-          >
-            Bank Records
+              <Button variant='primary'>Add Occupation</Button>
+            </SpaceBetween>}  counter={selectedItems.length ? `(${selectedItems.length}/10)` : "(10)"}>
+          Records
           </Header>
         }
         pagination={<Pagination currentPageIndex={1} pagesCount={1} />}
@@ -112,9 +113,7 @@ const Bank = () => {
             preferences={{
               pageSize: 10,
               contentDisplay: [
-                { id: "bankName", visible: true },
-                { id: "slug", visible: true },
-                { id: "accountNumber", visible: true },
+                { id: "occupationName", visible: true },
               ],
             }}
             pageSizePreference={{
@@ -129,9 +128,7 @@ const Bank = () => {
             contentDensityPreference={{}}
             contentDisplayPreference={{
               options: [
-                { id: "bankName", label: "Bank Name", alwaysVisible: true },
-                { id: "slug", label: "Slug" },
-                { id: "accountNumber", label: "Account Number" },
+                { id: "occupationName", label: "Beneficiary Type Name" },
               ],
             }}
             stickyColumnsPreference={{
@@ -160,4 +157,4 @@ const Bank = () => {
   );
 }
 
-export default Bank;
+export default BeneficiaryType;

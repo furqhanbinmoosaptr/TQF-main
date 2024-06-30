@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ESP = () => {
+const indes = () => {
   return (
-    <div>ESP</div>
+    <div>indes</div>
   )
 }
 
-export default ESP
+export default indes

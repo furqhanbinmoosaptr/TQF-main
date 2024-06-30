@@ -15,7 +15,7 @@ const NGOS = () => {
   const [selectedItems, setSelectedItems] = useState([]);
 
   return (
-    <ContentLayout
+    <ContentLayout headerVariant='high-contrast'
       breadcrumbs={
         <BreadcrumbGroup
           items={[

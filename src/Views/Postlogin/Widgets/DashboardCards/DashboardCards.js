@@ -3,8 +3,8 @@ import { Box, ColumnLayout ,Link } from '@cloudscape-design/components'
 import React from 'react'
 
 const DashboardCards = () => {
-  const accoundBalance = 1222223;
-  const cashINHand = 456662334
+  const accoundBalance = 1223;
+  const cashINHand = 456333
   const donors = 223;
   const beneficiaries = 1243
   return (

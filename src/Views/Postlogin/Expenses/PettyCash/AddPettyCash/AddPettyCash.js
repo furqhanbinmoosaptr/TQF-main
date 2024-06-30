@@ -1,128 +1,142 @@
-import React, { useState } from 'react';
 import {
-  AppLayout,
-  ContentLayout,
-  Container,
-  Header,
-  FormField,
-  Input,
-  Select,
-  Textarea,
+  Box,
   Button,
+  Input,
+  BreadcrumbGroup,
+  ContentLayout,
+  DatePicker,
+  Form,
+  FormField,
+  Header,
+  Link,
   SpaceBetween,
+  Container,
   Grid,
 } from '@cloudscape-design/components';
+import React, { useState } from 'react';
 
 const AddPettyCash = () => {
-  const [amount, setAmount] = useState('');
-  const [description, setDescription] = useState('');
-  const [date, setDate] = useState('');
-  const [category, setCategory] = useState('');
-  const [currency, setCurrency] = useState('');
-  const [notes, setNotes] = useState('');
+  const [formData, setFormData] = useState({
+    withdrawnFrom: '',
+    withdrawalAmount: '',
+    withdrawnBy: '',
+    withdrawalDate: '',
+    purpose: '',
+    approvedBy: '',
+    remarks: '',
+  });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle form submission logic here
-    console.log({ amount, description, date, category, currency, notes });
+  const handleInputChange = ({ detail }) => {
+    const { name, value } = detail;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleDateChange = ({ detail }) => {
+    setFormData({
+      ...formData,
+      withdrawalDate: detail.value,
+    });
+  };
+
+  const handleSubmit = () => {
+    // Handle form submission
+    console.log(formData);
   };
 
   return (
-  
-    
-          <Container>
-            <form onSubmit={handleSubmit}>
-              <Grid
-                gridDefinition={[
-                  { colspan: { default: 12, xs: 6, s: 6, m: 4, l: 3 } },
-                  { colspan: { default: 12, xs: 6, s: 6, m: 4, l: 3 } },
-                  { colspan: { default: 12, xs: 6, s: 6, m: 4, l: 3 } },
-                  { colspan: { default: 12, xs: 6, s: 6, m: 4, l: 3 } },
-                  { colspan: { default: 12, xs: 6, s: 6, m: 4, l: 3 } },
-                  { colspan: { default: 12, xs: 6, s: 6, m: 4, l: 3 } },
-                ]}
-              >
-                <FormField
-                  label="Amount"
-                  description="Enter the amount of petty cash"
-                  errorText=""
-                >
-                  <Input
-                    type="number"
-                    value={amount}
-                    onChange={({ detail }) => setAmount(detail.value)}
-                    placeholder="Enter amount"
-                  />
-                </FormField>
-                <FormField
-                  label="Description"
-                  description="Enter a description for the petty cash"
-                  errorText=""
-                >
-                  <Input
-                    value={description}
-                    onChange={({ detail }) => setDescription(detail.value)}
-                    placeholder="Enter description"
-                  />
-                </FormField>
-                <FormField
-                  label="Date"
-                  description="Enter the date for the petty cash"
-                  errorText=""
-                >
-                  <Input
-                    type="date"
-                    value={date}
-                    onChange={({ detail }) => setDate(detail.value)}
-                  />
-                </FormField>
-                <FormField
-                  label="Category"
-                  description="Select the category of petty cash"
-                  errorText=""
-                >
-                  <Select
-                    selectedOption={category}
-                    onChange={({ detail }) => setCategory(detail.selectedOption)}
-                    options={[
-                      { label: "Supplies", value: "supplies" },
-                      { label: "Travel", value: "travel" },
-                      { label: "Food", value: "food" },
-                      { label: "Other", value: "other" },
-                    ]}
-                    placeholder="Select category"
-                  />
-                </FormField>
-                <FormField
-                  label="Currency"
-                  description="Enter the currency for the petty cash"
-                  errorText=""
-                >
-                  <Input
-                    value={currency}
-                    onChange={({ detail }) => setCurrency(detail.value)}
-                    placeholder="Enter currency"
-                  />
-                </FormField>
-                <FormField
-                  label="Notes"
-                  description="Enter any additional notes"
-                  errorText=""
-                >
-                  <Textarea
-                    value={notes}
-                    onChange={({ detail }) => setNotes(detail.value)}
-                    placeholder="Enter notes"
-                  />
-                </FormField>
-              </Grid>
-              <SpaceBetween size="l">
-                <Button variant="primary" type="submit">
-                  Add Petty Cash
-                </Button>
-              </SpaceBetween>
-            </form>
-          </Container>  
+    <ContentLayout
+      headerVariant="high-contrast"
+      breadcrumbs={
+        <BreadcrumbGroup
+          items={[
+            { text: 'Home', href: '#' },
+            { text: 'Expenses', href: '#' },
+            { text: 'Add Petty Cash', href: '#components' },
+          ]}
+          ariaLabel="Breadcrumbs"
+        />
+      }
+      header={
+        <Header info={<Link variant="info">Info</Link>} variant="h1">
+          Add Petty Cash
+        </Header>
+      }
+    >
+      <Container>
+        <Form
+          actions={
+            <SpaceBetween direction="horizontal" size="xs">
+              <Button variant="link">Cancel</Button>
+              <Button variant="primary" onClick={handleSubmit}>
+                Submit
+              </Button>
+            </SpaceBetween>
+          }
+        >
+          <Grid gridDefinition={[{ colspan: 3 }, { colspan: 3 }, { colspan: 3 }, { colspan: 3 }]}>
+            <FormField label="Withdrawn From" description="Source of the petty cash withdrawal">
+              <Input
+                name="withdrawnFrom"
+                value={formData.withdrawnFrom}
+                onChange={handleInputChange}
+                placeholder="Enter source"
+              />
+            </FormField>
+            <FormField label="Withdrawal Amount" description="Amount of petty cash withdrawn" required>
+              <Input
+                name="withdrawalAmount"
+                type="number"
+                value={formData.withdrawalAmount}
+                onChange={handleInputChange}
+                placeholder="Enter amount"
+              />
+            </FormField>
+            <FormField label="Withdrawn By" description="Person who is withdrawing the petty cash" required>
+              <Input
+                name="withdrawnBy"
+                value={formData.withdrawnBy}
+                onChange={handleInputChange}
+                placeholder="Enter name"
+              />
+            </FormField>
+            <FormField label="Withdrawal Date" description="Date of the petty cash withdrawal" required>
+              <DatePicker
+                value={formData.withdrawalDate}
+                onChange={handleDateChange}
+                placeholder="Select date"
+              />
+            </FormField>
+            <FormField label="Purpose" description="Purpose of the petty cash withdrawal">
+              <Input
+                name="purpose"
+                value={formData.purpose}
+                onChange={handleInputChange}
+                placeholder="Enter purpose"
+              />
+            </FormField>
+            <FormField label="Approved By" description="Person who approved the petty cash withdrawal">
+              <Input
+                name="approvedBy"
+                value={formData.approvedBy}
+                onChange={handleInputChange}
+                placeholder="Enter name"
+              />
+            </FormField>
+            <FormField label="Remarks" description="Additional remarks or notes">
+              <Input
+                name="remarks"
+                value={formData.remarks}
+                onChange={handleInputChange}
+                placeholder="Enter remarks"
+              />
+            </FormField>
+          </Grid>
+        </Form>
+      </Container>
+    </ContentLayout>
   );
 };
 

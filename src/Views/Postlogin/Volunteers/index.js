@@ -45,6 +45,7 @@ const Volunteers = () => {
 
   return (
 <ContentLayout 
+headerVariant='high-contrast'
 breadcrumbs={
   <BreadcrumbGroup
   items={[

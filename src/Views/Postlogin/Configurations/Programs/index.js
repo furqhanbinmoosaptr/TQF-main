@@ -5,23 +5,29 @@ import SpaceBetween from "@cloudscape-design/components/space-between";
 import Button from "@cloudscape-design/components/button";
 import TextFilter from "@cloudscape-design/components/text-filter";
 import Header from "@cloudscape-design/components/header";
-import ButtonDropdown from "@cloudscape-design/components/button-dropdown";
 import Pagination from "@cloudscape-design/components/pagination";
 import CollectionPreferences from "@cloudscape-design/components/collection-preferences";
-import { ContentLayout, Link } from "@cloudscape-design/components";
+import { ButtonDropdown, ContentLayout, Link } from "@cloudscape-design/components";
 
 const DonationsPrograms = () => {
   const [selectedItems, setSelectedItems] = React.useState([]);
 
+  const data = [
+    { id: 1, programName: "Educational", slug: "educational", balanceAmount: "6,684,145.14/-", status: "Active" },
+    { id: 2, programName: "Welfare", slug: "welfare", balanceAmount: "13,348,172.62/-", status: "Active" },
+    { id: 3, programName: "Operationals", slug: "operational", balanceAmount: "280.49/-", status: "Hold" },
+    { id: 4, programName: "Economical", slug: "economical", balanceAmount: "2,605,528.05/-", status: "Active" },
+    { id: 5, programName: "Medical", slug: "medical", balanceAmount: "0.00/-", status: "Deactive" },
+    { id: 6, programName: "Recreational", slug: "cultural/event", balanceAmount: "0.00/-", status: "Deactive" },
+  ];
+
   return (
     <ContentLayout
+      headerVariant="high-contrast"
       header={
         <SpaceBetween size="m">
-          <Header
-            variant="h1"
-            info={<Link variant="info">Info</Link>}
-          >
-            NGOs Donations Programs
+          <Header variant="h1" info={<Link variant="info">Info</Link>}>
+            TQF Donation Programs
           </Header>
         </SpaceBetween>
       }
@@ -36,91 +42,46 @@ const DonationsPrograms = () => {
           selectionGroupLabel: "Items selection",
           allItemsSelectionLabel: ({ selectedItems }) =>
             `${selectedItems.length} ${selectedItems.length === 1 ? "item" : "items"} selected`,
-          itemSelectionLabel: ({ selectedItems }, item) => item.description
+          itemSelectionLabel: ({ selectedItems }, item) => item.programName,
         }}
         columnDefinitions={[
           {
-            id: "date",
-            header: "Date",
-            cell: (e) => e.date,
-            sortingField: "date",
-            isRowHeader: true
+            id: "programName",
+            header: "Program Name",
+            cell: e => e.programName,
+            sortingField: "programName",
+            isRowHeader: true,
           },
           {
-            id: "amount",
-            header: "Amount (₹)",
-            cell: (e) => e.amount,
-            sortingField: "amount"
+            id: "slug",
+            header: "Slug",
+            cell: e => e.slug,
+            sortingField: "slug",
           },
           {
-            id: "purpose",
-            header: "Purpose",
-            cell: (e) => e.purpose
-          },
-          {
-            id: "department",
-            header: "Department",
-            cell: (e) => e.department
-          },
-          {
-            id: "approvedBy",
-            header: "Approved By",
-            cell: (e) => e.approvedBy
+            id: "balanceAmount",
+            header: "Balance Amount",
+            cell: e => e.balanceAmount,
+            sortingField: "balanceAmount",
           },
           {
             id: "status",
             header: "Status",
-            cell: (e) => e.status
+            cell: e => e.status,
+            sortingField: "status",
           },
-          {
-            id: "remarks",
-            header: "Remarks",
-            cell: (e) => e.remarks
-          }
         ]}
         columnDisplay={[
-          { id: "date", visible: true },
-          { id: "amount", visible: true },
-          { id: "purpose", visible: true },
-          { id: "department", visible: true },
-          { id: "approvedBy", visible: true },
+          { id: "programName", visible: true },
+          { id: "slug", visible: true },
+          { id: "balanceAmount", visible: true },
           { id: "status", visible: true },
-          { id: "remarks", visible: true }
         ]}
         enableKeyboardNavigation
-        items={[
-          {
-            date: "2024-06-01",
-            amount: "₹1000",
-            purpose: "Zakat distribution",
-            department: "Community Outreach",
-            approvedBy: "Imam Ali",
-            status: "Approved",
-            remarks: "Ramadan Campaign"
-          },
-          {
-            date: "2024-06-05",
-            amount: "₹2000",
-            purpose: "Education scholarships",
-            department: "Education",
-            approvedBy: "Sheikh Mohammed",
-            status: "Pending",
-            remarks: "Annual Scholarship Program"
-          },
-          {
-            date: "2024-06-10",
-            amount: "₹500",
-            purpose: "Iftar meals",
-            department: "Community Outreach",
-            approvedBy: "Imam Hussain",
-            status: "Approved",
-            remarks: "Daily Iftar Program"
-          }
-          // Add more entries as needed
-        ]}
+        items={data}
         loadingText="Loading resources"
         selectionType="multi"
-        trackBy="date"
+        trackBy="id"
         empty={
           <Box margin={{ vertical: "xs" }} textAlign="center" color="inherit">
             <SpaceBetween size="m">
@@ -130,41 +91,38 @@ const DonationsPrograms = () => {
           </Box>
         }
         filter={
-          <TextFilter
-            filteringPlaceholder="Find resources"
-            filteringText=""
-          />
+          <TextFilter filteringPlaceholder="Find resources" filteringText="" />
         }
         header={
           <Header
-            counter={
-              selectedItems.length
-                ? `(${selectedItems.length}/11)`
-                : "(11)"
-            }
+            counter={selectedItems.length ? `(${selectedItems.length}/6)` : "(6)"}
             actions={
               <SpaceBetween direction="horizontal" size="xs">
-                <ButtonDropdown
-                  items={[
-                    { text: "Deactivate", id: "deactivate", disabled: false },
-                    { text: "Activate", id: "activate", disabled: false },
-                    { text: "Status 3", id: "status3", disabled: false },
-                    { text: "View details", id: "viewDetails", disabled: false },
-                    { text: "Edit", id: "edit", disabled: false },
-                    { text: "Delete", id: "delete", disabled: false }
-                  ]}
-                >
-                  Actions
-                </ButtonDropdown>
-                <Button>Secondary button</Button>
-                <Button variant="primary">Create resource</Button>
+                  <ButtonDropdown
+                items={[
+                
+                  {
+                    text: "Edit",
+                    id: "mv",
+                    disabled: false
+                  },
+                  {
+                    text: "Delete",
+                    id: "rn",
+                    disabled: false
+                  }
+                ]}
+              >
+                Actions
+              </ButtonDropdown>
+                <Button variant="primary">Add Program</Button>
               </SpaceBetween>
             }
           >
-            NGOs Donations Programs Records
+           Programs Records
           </Header>
         }
-        pagination={<Pagination currentPageIndex={1} pagesCount={2} />}
+        pagination={<Pagination currentPageIndex={1} pagesCount={1} />}
         preferences={
           <CollectionPreferences
             title="Preferences"
@@ -173,35 +131,29 @@ const DonationsPrograms = () => {
             preferences={{
               pageSize: 10,
               contentDisplay: [
-                { id: "date", visible: true },
-                { id: "amount", visible: true },
-                { id: "purpose", visible: true },
-                { id: "department", visible: true },
-                { id: "approvedBy", visible: true },
+                { id: "programName", visible: true },
+                { id: "slug", visible: true },
+                { id: "balanceAmount", visible: true },
                 { id: "status", visible: true },
-                { id: "remarks", visible: true }
-              ]
+              ],
             }}
             pageSizePreference={{
               title: "Page size",
               options: [
-                { value: 10, label: "10 records" },
-                { value: 20, label: "20 records" }
-              ]
+                { value: 10, label: "10 resources" },
+                { value: 20, label: "20 resources" },
+              ],
             }}
             wrapLinesPreference={{}}
             stripedRowsPreference={{}}
             contentDensityPreference={{}}
             contentDisplayPreference={{
               options: [
-                { id: "date", label: "Date", alwaysVisible: true },
-                { id: "amount", label: "Amount" },
-                { id: "purpose", label: "Purpose" },
-                { id: "department", label: "Department" },
-                { id: "approvedBy", label: "Approved By" },
+                { id: "programName", label: "Program Name", alwaysVisible: true },
+                { id: "slug", label: "Slug" },
+                { id: "balanceAmount", label: "Balance Amount" },
                 { id: "status", label: "Status" },
-                { id: "remarks", label: "Remarks" }
-              ]
+              ],
             }}
             stickyColumnsPreference={{
               firstColumns: {
@@ -210,17 +162,17 @@ const DonationsPrograms = () => {
                 options: [
                   { label: "None", value: 0 },
                   { label: "First column", value: 1 },
-                  { label: "First two columns", value: 2 }
-                ]
+                  { label: "First two columns", value: 2 },
+                ],
               },
               lastColumns: {
                 title: "Stick last column",
                 description: "Keep the last column visible while horizontally scrolling the table content.",
                 options: [
                   { label: "None", value: 0 },
-                  { label: "Last column", value: 1 }
-                ]
-              }
+                  { label: "Last column", value: 1 },
+                ],
+              },
             }}
           />
         }

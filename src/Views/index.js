@@ -29,6 +29,12 @@ import NgoForm from "./Postlogin/Forms/ESPform/NgoForm";
 import DonorsDetails from "./TableDetails/DonorsDetails";
 import DonorDetail from "./TableDetails/DonorsDetails";
 import HSPform from "./Postlogin/Forms/ESPform/HSPform";
+import Industries from "./Postlogin/Configurations/Industries";
+import Occupations from "./Postlogin/Configurations/Occupations";
+import BeneficiaryOccupations from "./Postlogin/Configurations/BeneficiaryOccupations";
+import BeneficiaryType from "./Postlogin/Configurations/BeneficiaryType";
+import AddExpenses from "./Postlogin/Expenses/PettyCash/Expenses/AddExpenses";
+import AddPettyCash from "./Postlogin/Expenses/PettyCash/AddPettyCash/AddPettyCash";
 const Dashboards = lazy(() => import("./Postlogin/Dashboard"));
 const Quotations = lazy(() => import("./Postlogin/Quatations"));
 const FinishProductSpecification = lazy(() =>
@@ -116,6 +122,27 @@ const Views = () => {
             element={<Bank />}
           />
 
+          <Route
+            exact
+            path={`${PREFIX_APP_PATH}/configurations/industries`}
+            element={<Industries />}
+          />
+ <Route
+            exact
+            path={`${PREFIX_APP_PATH}/configurations/occupations`}
+            element={<Occupations />}
+          />
+ <Route
+            exact
+            path={`${PREFIX_APP_PATH}/configurations/beneficiary-occupations`}
+            element={<BeneficiaryOccupations />}
+          /> BeneficiaryType
+
+<Route
+            exact
+            path={`${PREFIX_APP_PATH}/configurations/beneficiary-types`}
+            element={<BeneficiaryType />}
+          /> 
           {/* expensess routes */}
 
           <Route
@@ -126,10 +153,26 @@ const Views = () => {
 
 <Route
             exact
+            path={`${PREFIX_APP_PATH}/expenses/petty-cash/pettycash-form`}
+            element={<AddPettyCash />}
+          />
+
+          <Route
+            exact
+            path={`${PREFIX_APP_PATH}/expenses/expenses/expenses-form`}
+            element={<AddExpenses />}
+          />
+
+<Route
+            exact
             path={`${PREFIX_APP_PATH}/expenses/espenses`}
             element={<Expenses />}
           />
-
+<Route
+            exact
+            path={`${PREFIX_APP_PATH}/expenses/espenses-form`}
+            element={<AddExpenses />}
+          />
 {/* // applications routes */}
 <Route
             exact
@@ -221,6 +264,7 @@ const Views = () => {
             path={`${PREFIX_APP_PATH}/donors`}
             element={<Donors />}
           />
+
 
 
  {/*details pages routes  */}

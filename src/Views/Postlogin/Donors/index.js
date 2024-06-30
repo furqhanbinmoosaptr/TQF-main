@@ -6,7 +6,8 @@ import {
   Table,
   Pagination,
   TextFilter,
-  CollectionPreferences
+  CollectionPreferences,
+  ContentLayout
 } from '@cloudscape-design/components';
 
 const Donors = () => {
@@ -37,14 +38,16 @@ const Donors = () => {
   };
 
   return (
-    <Container
+    <ContentLayout headerVariant='high-contrast'
       header={
         <Header variant="h1" description="List of donors with their details and donations">
           Donors
         </Header>
       }
     >
-      <Table
+      <Table header={
+        <Header>Donrors List</Header>
+      }
         columnDefinitions={columnDefinitions}
         items={donors}
         sortingDisabled
@@ -54,7 +57,7 @@ const Donors = () => {
         stickyHeader
         onRowClick={({ detail }) => handleRowClick(detail.item.donorId)}
       />
-    </Container>
+    </ContentLayout>
   );
 };
 
